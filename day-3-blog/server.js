@@ -1,11 +1,5 @@
 var async = require('async');
 
-// Settings for our application. We'll load them from a separate file -
-// our first Node module. Use ./ to access a file in the current
-// directory. Use them to start building our 'context' object, which
-// provides access to all the important stuff we may need throughout
-// the application
-
 var context = {};
 context.settings = require('./settings');
 
@@ -27,7 +21,7 @@ function setupApp(callback)
   context.app.init(context, callback);
 }
 
-// Ready to roll - start listening for connections
+// Listening for connections
 function listen(callback)
 {
   context.app.listen(context.settings.http.port);
