@@ -1,4 +1,4 @@
-- Added proper support for MongoDB backend
+- Add proper support for MongoDB backend
 - Use of Underscore
 - Better Routes using Express
 - Use Xregexp
