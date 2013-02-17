@@ -1,6 +1,6 @@
 {
     "author": "Aish Raj Dahal",
-    "name": "Trial Nodejs based blog",
+    "name": "blog-project-v3",
     "description": "A learner's blog for Nodejs. Based on justjs.com",
     "version": "0.0.3",
     "keywords": ["tutorial","beginner"],
