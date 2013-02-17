@@ -1,4 +1,4 @@
-modules.export = {
+module.exports = {
     db: {
         host: '127.0.0.1' ,
         port: 27017,
@@ -6,5 +6,5 @@ modules.export = {
     },
     http: {
         port: 8080 
-    }
+    },
 };

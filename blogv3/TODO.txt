@@ -1,8 +1,0 @@
-- Add proper support for MongoDB backend
-- Use of Underscore
-- Better Routes using Express
-- Use Xregexp
-- Better Form processing
-
-Security and all follow. But the aforementioned stuff are the goals for this version of the blog project.
-

@@ -1,8 +1,10 @@
 var async = require('async');
 
-var context = {};
+var context = {}; //Just a wrapper thingy. I've seen these to be pretty handful for JavaScript code.
 context.settings = require('./settings');
 
+//This is my first time with Async.
+//Using here to do the items in the array to be done in orderly manner one after the other.
 async.series([setupDb, setupApp, listen], ready);
 
 function setupDb(callback)
