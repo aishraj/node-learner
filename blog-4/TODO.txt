@@ -1,0 +1,9 @@
+- Add basic support for MongoDB backend (DONE)
+- Use of Underscore (Done)
+- Better Routes using Express (Done well somewhat)
+- Use Xregexp (postponed)
+- Better Form processing (Done)
+- Using EJS
+
+Security and all follow. But the aforementioned stuff are the goals for this version of the blog project.
+
