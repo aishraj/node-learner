@@ -1,0 +1,17 @@
+{
+    "author": "Aish Raj Dahal",
+    "name": "blog-project-v3",
+    "description": "A learner's blog for Nodejs. Based on justjs.com",
+    "version": "0.0.3",
+    "keywords": ["tutorial","beginner"],
+    "contributors": [],
+    "dependencies": {
+        "underscore": "~1.4.4",
+        "express": "~3.1.0",
+        "mongodb": "1.2.11",
+        "async": "0.2.5"
+    },
+    "engines": {
+        "node": "*"
+    }
+}
