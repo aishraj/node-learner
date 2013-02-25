@@ -10,6 +10,7 @@ module.exports = init: (context, callback) ->
   
   notFound = (res) ->
     res.send "<h1>Page not found.</h1>", 404
+    
   app = context.app = express()
   app.use express.bodyParser()
   view = context.view
