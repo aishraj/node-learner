@@ -1,14 +1,16 @@
-express = require("express")
-_ = require("underscore")
-
-#Based on justjs blog. 
-#Licensed under MIT License.
-#Author is bountell
-#This code is here only to fillup the void and act as stub as I learn node.js
+_ = require "underscore"
+express = require "express"
 module.exports = init: (context, callback) ->
   
-  #In order to know the parameters of the POST request.
-  #Throw 404
+  # Create an Express app object to add routes to and add
+  # it to the context
+  
+  # The express "body parser" gives us the parameters of a 
+  # POST request is a convenient req.body object
+  
+  # Deliver a list of posts when we see just '/'
+  
+  # Deliver a specific post when we see /posts/ 
   
   # Deliver a "new post" form when we see /new.
   # POST it right back to the same URL; the next route
@@ -40,15 +42,15 @@ module.exports = init: (context, callback) ->
   # reasonable but doesn't match any actual posts
   notFound = (res) ->
     res.send "<h1>Page not found.</h1>", 404
-  app = context.app = express()
+  app = context.app = express.createServer()
   app.use express.bodyParser()
   app.get "/", (req, res) ->
     context.db.posts.findAll (err, posts) ->
       if err
         notFound res
         return
-      s = "<title> Blog Title </title>\n"
-      s += "<h1> My Blog </h1>\n"
+      s = "<title>My Blog</title>\n"
+      s += "<h1>My Blog</h1>\n"
       s += "<p><a href=\"/new\">New Post</a></p>" + "\n"
       s += "<ul>\n"
       for slug of posts
