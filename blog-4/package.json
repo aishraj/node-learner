@@ -2,8 +2,8 @@
     "author": "Aish Raj Dahal",
     "name": "blog-project-v3",
     "description": "A learner's blog for Nodejs. Based on justjs.com",
-    "version": "0.0.3",
-    "keywords": ["tutorial","beginner"],
+    "version": "0.0.4",
+    "keywords": ["tutorial","beginner","coffeeScript"],
     "contributors": [],
     "dependencies": {
         "underscore": "~1.4.4",
