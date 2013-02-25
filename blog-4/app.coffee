@@ -1,5 +1,5 @@
-_ = require("underscore")
-express = require("express")
+_ = require "underscore"
+express = require "express"
 view = undefined
 module.exports = init: (context, callback) ->
   
@@ -40,7 +40,7 @@ module.exports = init: (context, callback) ->
   # reasonable but doesn't match any actual posts
   notFound = (res) ->
     res.send "<h1>Page not found.</h1>", 404
-  app = context.app = express.createServer()
+  app = context.app = express()
   app.use express.bodyParser()
   view = context.view
   app.use "/static", express.static(__dirname + "/static")

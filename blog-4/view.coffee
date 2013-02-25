@@ -53,7 +53,8 @@ module.exports = view =
     # Synchronous operations are a little outside the node spirit, but reading
     # small files from the filesystem is very fast, and we only do it once per template,
     # after which we have it cached
-    templates[template] = ejs.compile(fs.readFileSync(options.viewDir + "/" + template + ".ejs", "utf8"))  unless templates[template]
+    templateName = fs.readFileSync options.viewDir + "/" + template + ".eco" , "utf8"
+    templates[template] = eco.compile templateName  unless templates[template]
     
     # Inject a partial() function for rendering another partial inside this one. 
     # All partials get to participate in overriding slots, unless we explicitly pass
