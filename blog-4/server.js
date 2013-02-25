@@ -1,16 +1,15 @@
 var async = require('async');
 
-var context = {}; //Just a wrapper thingy. I've seen these to be pretty handful for JavaScript code.
+// Settings for our application. We'll load them from a separate file -
+// our first Node module. Use ./ to access a file in the current
+// directory. Use them to start building our 'context' object, which
+// provides access to all the important stuff we may need throughout
+// the application
+
+var context = {};
 context.settings = require('./settings');
 
-//This is my first time with Async.
-//Using here to do the items in the array to be done in orderly manner one after the other.
-async.series([setupDb,setupView, setupApp, listen], ready);
-
-function setupView(callback) {
-    context.view = require("./view.js");
-    context.view.init({viewDir: __dirname + "/views"}, callback);
-}
+async.series([setupDb, setupView, setupApp, listen], ready);
 
 function setupDb(callback)
 {
@@ -21,6 +20,14 @@ function setupDb(callback)
   context.db.init(context, callback);
 }
 
+function setupView(callback)
+{
+  // Create the view object
+  context.view = require('./view.js');
+  // Serve templates from this folder
+  context.view.init({viewDir: __dirname + '/views'}, callback);
+}
+
 function setupApp(callback)
 {
   // Create the Express app object and load our routes
@@ -28,7 +35,7 @@ function setupApp(callback)
   context.app.init(context, callback);
 }
 
-// Listening for connections
+// Ready to roll - start listening for connections
 function listen(callback)
 {
   context.app.listen(context.settings.http.port);
