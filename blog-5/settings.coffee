@@ -19,4 +19,4 @@ module.exports =
   	returnURL: 'http://localhost:3000/auth/google/callback',
   	realm: 'http://localhost:3000/'
 
-  
+  posters: 'dahalaishraj+gitcheck@gmail.com'

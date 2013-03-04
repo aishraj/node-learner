@@ -13,7 +13,7 @@ module.exports = db =
     settings = context.settings
     
     dbConnection = new mongo.Db(settings.db.name, new mongo.Server(settings.db.host, settings.db.port, {}), {safe:true})
-    
+    context.dbConnection = dbConnection
     dbConnection.open (err) ->
       
       callback err  if err

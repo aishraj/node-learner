@@ -6,22 +6,31 @@ view = undefined
 module.exports = init: (context, callback) ->
 
   newPost = (res, message) ->
-    res.send view.page("new",
+    page req, res, "new",
       message: message
-    )
-
+    
   notFound = (res) ->
     res.send "<h1>Page not found.</h1>", 404
 
-  configurePassport ->
-    GoogleStrategy = passport = require 'passport-google'.Strategy
+  page = (req,res,template,data) ->
+    _.defaults data,
+      slots: {}
+
+    _.defaults data.slots,
+      user: req.user,
+      session: req.session
+
+    res.send view.page(template,data)
+
+  configurePassport = ->
+    GoogleStrategy = require("passport-google").Strategy
     passport.use new GoogleStrategy(context.settings.google, (identifier, profile, done) ->
-
-      user = 
+      
+      user =
         email: profile.emails[0].value
-        displayName = profile.displayName
+        displayName: profile.displayName
 
-      done null,user
+      done null, user
     )
 
     passport.serializeUser (user,done) ->
@@ -33,6 +42,11 @@ module.exports = init: (context, callback) ->
         done null,user
       else
         done new Error("Bad JSON in seession"), null
+
+    app.use passport.initialize()
+    app.use passport.session()
+
+    app.get "/auth/google", passport.authenticate("google")
 
     app.get "/auth/google/callback", passport.authenticate("google",
       successRedirect: "/"
@@ -52,17 +66,17 @@ module.exports = init: (context, callback) ->
       return false
     true
 
-  app.use passport.initialize()
-  app.use passport.seession()
-  app.get "/auth/google", passport.authenticate("google")
-
   app = context.app = express()
   app.use express.bodyParser()
 
   view = context.view
-  context.app.use express.cookieparser()
+  context.app.use express.cookieParser()
+
+  connectMongoDb = require("connect-mongodb")
+  mongoStore = new connectMongoDb(db: context.mongoConnection)
   context.app.use express.session(
-      secret: context.settings.sessionSecret
+      secret: context.settings.sessionSecret,
+      store: mongoStore
     )
 
   app.use "/static", express.static(__dirname + "/static")
@@ -72,25 +86,26 @@ module.exports = init: (context, callback) ->
       if err
         notFound res
         return
-      res.send view.page("index",
+      page req,res,"index",
         posts: posts
-      )
-
+      
 
   app.get "/posts/:slug", (req, res) ->
     context.db.posts.findOneBySlug req.params.slug, (err, post) ->
       if err or (not post)
         notFound res
         return
-      res.send view.page("post",
+      page req,res,"post",
         post: post
-      )
+      
 
 
   app.get "/new", (req, res) ->
+    return unless validPoster(req,res)
     newPost res
 
   app.post "/new", (req, res) ->
+    return  unless validPoster(req, res)
     post = _.pick(req.body, "title", "body")
     context.db.posts.insert post, (err, post) ->
       if err
